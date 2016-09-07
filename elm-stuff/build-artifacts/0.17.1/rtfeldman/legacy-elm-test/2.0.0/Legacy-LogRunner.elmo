@@ -1,0 +1,54 @@
+var _rtfeldman$legacy_elm_test$Legacy_LogRunner$summarize = function (_p0) {
+	var _p1 = _p0;
+	var _p3 = _p1.output;
+	var _p2 = _p1.failed;
+	var headline = (_elm_lang$core$Native_Utils.cmp(_p2, 0) > 0) ? A2(_elm_lang$core$Basics_ops['++'], _p3, '\n\nTEST RUN FAILED') : 'TEST RUN PASSED';
+	return A2(
+		_elm_lang$core$String$join,
+		'\n',
+		_elm_lang$core$Native_List.fromArray(
+			[
+				_p3,
+				A2(_elm_lang$core$Basics_ops['++'], headline, '\n'),
+				A2(
+				_elm_lang$core$Basics_ops['++'],
+				'Passed: ',
+				_elm_lang$core$Basics$toString(_p1.passed)),
+				A2(
+				_elm_lang$core$Basics_ops['++'],
+				'Failed: ',
+				_elm_lang$core$Basics$toString(_p2))
+			]));
+};
+var _rtfeldman$legacy_elm_test$Legacy_LogRunner$logOutput = F2(
+	function (summary, arg) {
+		var output = A2(
+			_elm_lang$core$Basics_ops['++'],
+			_rtfeldman$legacy_elm_test$Legacy_LogRunner$summarize(summary),
+			'\n\nExit code');
+		var _p4 = (_elm_lang$core$Native_Utils.cmp(summary.failed, 0) > 0) ? function (_p5) {
+			return {ctor: '_Tuple0'};
+		}(
+			function (_p6) {
+				return _elm_lang$core$Native_Utils.crash(
+					'Legacy.LogRunner',
+					{
+						start: {line: 69, column: 31},
+						end: {line: 69, column: 42}
+					})('FAILED TEST RUN');
+			}(
+				A3(_elm_lang$core$Basics$flip, _elm_lang$core$Debug$log, 1, output))) : function (_p7) {
+			return {ctor: '_Tuple0'};
+		}(
+			A3(_elm_lang$core$Basics$flip, _elm_lang$core$Debug$log, 0, output));
+		return arg;
+	});
+var _rtfeldman$legacy_elm_test$Legacy_LogRunner$runWithOptions = F3(
+	function (runs, seed, test) {
+		return _rtfeldman$legacy_elm_test$Legacy_LogRunner$logOutput(
+			A3(_rtfeldman$legacy_elm_test$Legacy_StringRunner$runWithOptions, runs, seed, test));
+	});
+var _rtfeldman$legacy_elm_test$Legacy_LogRunner$run = function (test) {
+	return _rtfeldman$legacy_elm_test$Legacy_LogRunner$logOutput(
+		_rtfeldman$legacy_elm_test$Legacy_StringRunner$run(test));
+};

@@ -1,0 +1,105 @@
+var _rtfeldman$legacy_elm_test$Legacy_StringRunner$indentLines = function (str) {
+	return A2(
+		_elm_lang$core$String$join,
+		'\n',
+		A2(
+			_elm_lang$core$List$map,
+			F2(
+				function (x, y) {
+					return A2(_elm_lang$core$Basics_ops['++'], x, y);
+				})('    '),
+			A2(_elm_lang$core$String$split, '\n', str)));
+};
+var _rtfeldman$legacy_elm_test$Legacy_StringRunner$defaultRuns = 100;
+var _rtfeldman$legacy_elm_test$Legacy_StringRunner$defaultSeed = _mgold$elm_random_pcg$Random_Pcg$initialSeed(4295183);
+var _rtfeldman$legacy_elm_test$Legacy_StringRunner$outputLabels = function (labels) {
+	return A2(
+		_elm_lang$core$String$join,
+		'\n',
+		A3(
+			_elm_community$elm_test$Test_Runner$formatLabels,
+			F2(
+				function (x, y) {
+					return A2(_elm_lang$core$Basics_ops['++'], x, y);
+				})('↓ '),
+			F2(
+				function (x, y) {
+					return A2(_elm_lang$core$Basics_ops['++'], x, y);
+				})('✗ '),
+			labels));
+};
+var _rtfeldman$legacy_elm_test$Legacy_StringRunner$fromExpectation = F2(
+	function (expectation, summary) {
+		var _p0 = _elm_community$elm_test$Expect$getFailure(expectation);
+		if (_p0.ctor === 'Nothing') {
+			return _elm_lang$core$Native_Utils.update(
+				summary,
+				{passed: summary.passed + 1});
+		} else {
+			var _p1 = _p0._0.given;
+			var prefix = _elm_lang$core$String$isEmpty(_p1) ? '' : A2(
+				_elm_lang$core$Basics_ops['++'],
+				'Given ',
+				A2(_elm_lang$core$Basics_ops['++'], _p1, '\n\n'));
+			var newOutput = A2(
+				_elm_lang$core$Basics_ops['++'],
+				'\n\n',
+				A2(
+					_elm_lang$core$Basics_ops['++'],
+					A2(
+						_elm_lang$core$Basics_ops['++'],
+						prefix,
+						_rtfeldman$legacy_elm_test$Legacy_StringRunner$indentLines(_p0._0.message)),
+					'\n'));
+			return {
+				output: A2(_elm_lang$core$Basics_ops['++'], summary.output, newOutput),
+				failed: summary.failed + 1,
+				passed: summary.passed
+			};
+		}
+	});
+var _rtfeldman$legacy_elm_test$Legacy_StringRunner$toOutputHelp = F3(
+	function (labels, runner, summary) {
+		toOutputHelp:
+		while (true) {
+			var _p2 = runner;
+			switch (_p2.ctor) {
+				case 'Runnable':
+					return A3(
+						_elm_lang$core$List$foldl,
+						_rtfeldman$legacy_elm_test$Legacy_StringRunner$fromExpectation,
+						summary,
+						_elm_community$elm_test$Test_Runner$run(_p2._0));
+				case 'Labeled':
+					var _v2 = A2(_elm_lang$core$List_ops['::'], _p2._0, labels),
+						_v3 = _p2._1,
+						_v4 = summary;
+					labels = _v2;
+					runner = _v3;
+					summary = _v4;
+					continue toOutputHelp;
+				default:
+					return A3(
+						_elm_lang$core$List$foldl,
+						_rtfeldman$legacy_elm_test$Legacy_StringRunner$toOutputHelp(labels),
+						summary,
+						_p2._0);
+			}
+		}
+	});
+var _rtfeldman$legacy_elm_test$Legacy_StringRunner$toOutput = _elm_lang$core$Basics$flip(
+	_rtfeldman$legacy_elm_test$Legacy_StringRunner$toOutputHelp(
+		_elm_lang$core$Native_List.fromArray(
+			[])));
+var _rtfeldman$legacy_elm_test$Legacy_StringRunner$runWithOptions = F3(
+	function (runs, seed, test) {
+		return A2(
+			_rtfeldman$legacy_elm_test$Legacy_StringRunner$toOutput,
+			{output: '', passed: 0, failed: 0},
+			A3(_elm_community$elm_test$Test_Runner$fromTest, runs, seed, test));
+	});
+var _rtfeldman$legacy_elm_test$Legacy_StringRunner$run = A2(_rtfeldman$legacy_elm_test$Legacy_StringRunner$runWithOptions, _rtfeldman$legacy_elm_test$Legacy_StringRunner$defaultRuns, _rtfeldman$legacy_elm_test$Legacy_StringRunner$defaultSeed);
+var _rtfeldman$legacy_elm_test$Legacy_StringRunner$Summary = F3(
+	function (a, b, c) {
+		return {output: a, passed: b, failed: c};
+	});

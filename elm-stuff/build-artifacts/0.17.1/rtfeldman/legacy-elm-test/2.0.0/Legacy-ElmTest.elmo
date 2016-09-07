@@ -1,0 +1,61 @@
+var _rtfeldman$legacy_elm_test$Legacy_ElmTest$runSuiteHtml = _rtfeldman$html_test_runner$Test_Runner_Html$run;
+var _rtfeldman$legacy_elm_test$Legacy_ElmTest$runSuite = function (test) {
+	return A2(
+		_rtfeldman$legacy_elm_test$Legacy_LogRunner$run,
+		test,
+		_elm_lang$html$Html_App$beginnerProgram(
+			{
+				model: {ctor: '_Tuple0'},
+				update: F2(
+					function (_p1, _p0) {
+						return {ctor: '_Tuple0'};
+					}),
+				view: function (_p2) {
+					return _elm_lang$html$Html$text('Check the console for useful output!');
+				}
+			}));
+};
+var _rtfeldman$legacy_elm_test$Legacy_ElmTest$stringRunner = function (test) {
+	return _rtfeldman$legacy_elm_test$Legacy_StringRunner$run(test).output;
+};
+var _rtfeldman$legacy_elm_test$Legacy_ElmTest$fail = _elm_community$elm_test$Expect$fail;
+var _rtfeldman$legacy_elm_test$Legacy_ElmTest$pass = _elm_community$elm_test$Expect$pass;
+var _rtfeldman$legacy_elm_test$Legacy_ElmTest$lazyAssert = function (fn) {
+	return A2(
+		_elm_community$elm_test$Expect$true,
+		'lazyAssert assertion failed',
+		fn(
+			{ctor: '_Tuple0'}));
+};
+var _rtfeldman$legacy_elm_test$Legacy_ElmTest$assertNotEqual = _elm_community$elm_test$Expect$notEqual;
+var _rtfeldman$legacy_elm_test$Legacy_ElmTest$assertEqual = _elm_community$elm_test$Expect$equal;
+var _rtfeldman$legacy_elm_test$Legacy_ElmTest$assertionList = F2(
+	function (first, second) {
+		return A3(_elm_lang$core$List$map2, _rtfeldman$legacy_elm_test$Legacy_ElmTest$assertEqual, first, second);
+	});
+var _rtfeldman$legacy_elm_test$Legacy_ElmTest$assert = function (condition) {
+	return condition ? _elm_community$elm_test$Expect$pass : _elm_community$elm_test$Expect$fail('Assertion failed');
+};
+var _rtfeldman$legacy_elm_test$Legacy_ElmTest$suite = _elm_community$elm_test$Test$describe;
+var _rtfeldman$legacy_elm_test$Legacy_ElmTest$defaultTest = function (assertion) {
+	return A2(
+		_elm_community$elm_test$Test$test,
+		'',
+		function (_p3) {
+			return assertion;
+		});
+};
+var _rtfeldman$legacy_elm_test$Legacy_ElmTest$equals = F2(
+	function (expected, actual) {
+		return _rtfeldman$legacy_elm_test$Legacy_ElmTest$defaultTest(
+			A2(_elm_community$elm_test$Expect$equal, expected, actual));
+	});
+var _rtfeldman$legacy_elm_test$Legacy_ElmTest$test = F2(
+	function (desc, outcome) {
+		return A2(
+			_elm_community$elm_test$Test$test,
+			desc,
+			function (_p4) {
+				return outcome;
+			});
+	});

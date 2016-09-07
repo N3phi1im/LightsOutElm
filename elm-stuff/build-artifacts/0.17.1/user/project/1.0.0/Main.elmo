@@ -1,0 +1,57 @@
+var _user$project$Main$all = A2(
+	_rtfeldman$legacy_elm_test$Legacy_ElmTest$suite,
+	'LightsGame',
+	_elm_lang$core$Native_List.fromArray(
+		[
+			A2(
+			_rtfeldman$legacy_elm_test$Legacy_ElmTest$test,
+			'can toggle a light',
+			A2(
+				_rtfeldman$legacy_elm_test$Legacy_ElmTest$assertEqual,
+				_elm_lang$core$Native_List.fromArray(
+					[false]),
+				function (_) {
+					return _.isOn;
+				}(
+					A2(
+						_user$project$LightsGame$update,
+						_user$project$LightsGame$Toggle(0),
+						_user$project$LightsGame$init(
+							_elm_lang$core$Native_List.fromArray(
+								[true])))))),
+			A2(
+			_rtfeldman$legacy_elm_test$Legacy_ElmTest$test,
+			'toggling a light toggles its right neighbor',
+			A2(
+				_rtfeldman$legacy_elm_test$Legacy_ElmTest$assertEqual,
+				_elm_lang$core$Native_List.fromArray(
+					[true, true, false]),
+				function (_) {
+					return _.isOn;
+				}(
+					A2(
+						_user$project$LightsGame$update,
+						_user$project$LightsGame$Toggle(0),
+						_user$project$LightsGame$init(
+							_elm_lang$core$Native_List.fromArray(
+								[false, false, false])))))),
+			A2(
+			_rtfeldman$legacy_elm_test$Legacy_ElmTest$test,
+			'toggling a light toggles its left neighbor',
+			A2(
+				_rtfeldman$legacy_elm_test$Legacy_ElmTest$assertEqual,
+				_elm_lang$core$Native_List.fromArray(
+					[false, true, true]),
+				function (_) {
+					return _.isOn;
+				}(
+					A2(
+						_user$project$LightsGame$update,
+						_user$project$LightsGame$Toggle(2),
+						_user$project$LightsGame$init(
+							_elm_lang$core$Native_List.fromArray(
+								[false, false, false]))))))
+		]));
+var _user$project$Main$main = {
+	main: _rtfeldman$legacy_elm_test$Legacy_ElmTest$runSuiteHtml(_user$project$Main$all)
+};
